@@ -1,0 +1,12 @@
+{
+  "loki_bark_1": {
+    "sounds": [
+      "lokimod:entity/loki_bark_1"
+    ]
+  },
+  "loki_bark_2": {
+    "sounds": [
+      "lokimod:entity/loki_bark_2"
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 package net.ron.lokimod;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -12,6 +13,9 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.ron.lokimod.entity.ModEntities;
+import net.ron.lokimod.entity.client.LokiRenderer;
+import net.ron.lokimod.sound.ModSounds;
 import org.slf4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -22,9 +26,11 @@ public class LokiMod {
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
-    public LokiMod(FMLJavaModLoadingContext context)
+    public LokiMod()
     {
-        IEventBus modEventBus = context.getModEventBus();
+        //IEventBus modEventBus = context.getModEventBus();
+        @SuppressWarnings("removal")
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
@@ -35,6 +41,10 @@ public class LokiMod {
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
+
+        ModEntities.register(modEventBus);
+
+        ModSounds.register(modEventBus);
 
         // Register our mod's ForgeConfigSpec so that Forge can create and load the config file for us
         //context.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -65,7 +75,7 @@ public class LokiMod {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
+            EntityRenderers.register(ModEntities.LOKI.get(), LokiRenderer::new);
         }
     }
 }
