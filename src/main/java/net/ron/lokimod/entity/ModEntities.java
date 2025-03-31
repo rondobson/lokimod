@@ -16,7 +16,7 @@ public class ModEntities {
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, LokiMod.MODID);
 
     public static final RegistryObject<EntityType<LokiEntity>> LOKI =
-            ENTITY_TYPES.register("loki", () -> EntityType.Builder.of(LokiEntity:: new, MobCategory.CREATURE).sized(1F, 1F).build("loki"));
+            ENTITY_TYPES.register("loki", () -> EntityType.Builder.of(LokiEntity:: new, MobCategory.CREATURE).sized(0.6F, 0.85F).build("loki"));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);

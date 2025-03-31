@@ -36,7 +36,9 @@ public class LokiEntity extends TamableAnimal {
     public LokiEntity(EntityType<? extends TamableAnimal> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
 //        this.getNavigation().getNodeEvaluator().setCanPassDoors(true);
-        this.setPathfindingMalus(BlockPathTypes.FENCE, 0.0F);
+//        this.setPathfindingMalus(BlockPathTypes.FENCE, 0.0F);
+//        this.setPathfindingMalus(BlockPathTypes.BLOCKED, -1.0F);
+//        this.setPathfindingMalus(BlockPathTypes.OPEN, 0.0F);
 
 
     }
@@ -47,6 +49,8 @@ public class LokiEntity extends TamableAnimal {
 
     private int battleDropCount = 0;
 
+    private int targetTimeout = 0;
+
 
 
     @Override
@@ -55,6 +59,15 @@ public class LokiEntity extends TamableAnimal {
 
         if (this.level().isClientSide()){
             setupAnimationStates();
+        }
+
+        if(this.getTarget() != null) {
+            targetTimeout++;
+
+            if(targetTimeout >= (20 * 15)) {
+                targetTimeout = 0;
+                this.setTarget((LivingEntity) null);
+            }
         }
 
         // Debug: Print Loki's bounding box dimensions
@@ -123,6 +136,8 @@ public class LokiEntity extends TamableAnimal {
 
 
     }
+
+
 
     @Override
     public boolean canAttack(LivingEntity pTarget) {
