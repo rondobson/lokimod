@@ -150,6 +150,15 @@ public class LokiEntity extends TamableAnimal {
 //                }
 //            }
 //        }
+
+        // TODO: BRING THESE TWO BACK
+        if (pTarget instanceof LokiEntity) { // If target is a Loki
+            LokiEntity otherLoki = (LokiEntity) pTarget;
+
+            if (this.isTame() && otherLoki.isTame()){ // If both Lokis are tamed
+                    return false;
+            }
+        }
         if (pTarget instanceof TamableAnimal){ // If the target is a tamableAnimal
             TamableAnimal otherAnimal = (TamableAnimal) pTarget;
             if (this.isTame() && otherAnimal.isTame()) { // If both are tamed
